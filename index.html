@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Results Summary Component</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        padding: 186px 0px 0px 0px;
+        background: #ecf2ff;
+        background: #2e2e2e;
+        font-family: "Hanken Grotesk", sans-serif;
+        font-optical-sizing: auto;
+      }
+
+      .card-group {
+        display: flex;
+        border-radius: 30px;
+        background: #fff;
+        width: 736px;
+        height: 512px;
+        margin: 0 auto;
+      }
+
+      .card {
+        width: 368px;
+        padding-top: 39px;
+        /* padding-bottom: 60px; */
+      }
+
+      .left-card {
+        display: flex;
+        flex-direction: column;
+        padding-left: 56px;
+        padding-right: 56px;
+        padding-bottom: 60px;
+        background: #6947ff;
+
+        border-radius: 30px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .left-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 450px;
+        pointer-events: none;
+        background: linear-gradient(
+          to top,
+          rgba(50, 45, 234, 0.9) 0%,
+          rgba(50, 45, 234, 0.9) 50%,
+          rgba(50, 45, 234, 0) 100%
+        );
+
+        z-index: -1;
+      }
+
+      .left-card h1 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #d0cdff;
+        margin-bottom: 32px;
+      }
+
+      .right-card {
+        border-radius: 30px;
+
+        display: flex;
+        flex-direction: column;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 46px;
+        background: #fff;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .right-card h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #2e3b5d;
+        margin-bottom: 27px;
+      }
+
+      .circle-number-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .circle {
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(
+          to top,
+          hsla(256, 72%, 46%, 1) 100%,
+
+          hsla(241, 72%, 46%, 0) 0%
+        );
+
+        border-radius: 50%;
+        position: relative;
+        z-index: -2;
+      }
+
+      .number {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .digit {
+        font-size: 76px;
+        color: #fff;
+        line-height: 1.01;
+        font-weight: bold;
+      }
+
+      .digit-2 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #8c7dff;
+      }
+
+      .text-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 29px;
+      }
+      p strong {
+        font-size: 32px;
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .text-content p.paragraph {
+        margin-top: 13px;
+        font-size: 18px;
+        line-height: 129%;
+        text-align: center;
+        color: #d0cdff;
+      }
+
+      .summary-container {
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+      }
+
+      .summary {
+        padding: 20px 17px 17px 17px;
+        display: flex;
+        justify-content: space-between;
+        width: 288px;
+        height: 55px;
+        border-radius: 12px;
+      }
+
+      .summary p {
+        font-size: 18px;
+        font-weight: bold;
+        color: #2e3b5d;
+      }
+
+      .summary span {
+        font-size: 18px;
+        font-weight: bold;
+        color: #9e98a6;
+      }
+
+      .summary.reaction {
+        background: #fff6f7;
+      }
+
+      .summary.memory {
+        background: #fffaf4;
+      }
+
+      .summary.verbal {
+        background: #f2fdf9;
+      }
+
+      .summary.visual {
+        background: #f4f4fe;
+      }
+
+      .icon-title-wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .icon-title-wrap h3 {
+        font-size: 18px;
+      }
+
+      .reaction .icon-title-wrap h3 {
+        color: #ff7c7c;
+      }
+
+      .memory .icon-title-wrap h3 {
+        color: #ffb01f;
+      }
+
+      .verbal .icon-title-wrap h3 {
+        color: #00bd91;
+      }
+
+      .visual .icon-title-wrap h3 {
+        color: #1125d6;
+      }
+
+      button {
+        width: 100%;
+        height: 56px;
+        border-radius: 30px;
+        background: #303b59;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 40px;
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+
+      button:hover {
+        background: #232b41;
+      }
+
+      button:active {
+        background: linear-gradient(
+          to top,
+          #342ddc 0%,
+          #4e39f3 50%,
+          #6644fd 100%
+        );
+        outline: none;
+      }
+
+      @media (max-width: 763px) {
+        body {
+          padding: 90px 0px;
+        }
+
+        .card-group {
+          display: flex;
+          flex-direction: column;
+          width: 368px;
+          height: auto;
+          margin: 0 auto;
+        }
+
+        .card {
+          padding-top: 20px;
+        }
+        .right-card {
+          padding-bottom: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <article class="card-group">
+      <div class="left-card card">
+        <h1>Your Result</h1>
+        <div class="circle-number-wrap">
+          <div class="circle"></div>
+          <div class="number">
+            <p class="digit">76</p>
+            <p class="digit-2">of 100</p>
+          </div>
+        </div>
+        <div class="text-content">
+          <p><strong>Great</strong></p>
+          <p class="paragraph">
+            You scored higher than 65% of the people who have taken these tests.
+          </p>
+        </div>
+      </div>
+      <div class="right-card card">
+        <h2>Summary</h2>
+        <section class="summary-container">
+          <div class="summary reaction">
+            <div class="icon-title-wrap">
+              <img src="images/icon-reaction.svg" alt="" />
+              <h3>Reaction</h3>
+            </div>
+            <p>80<span> / 100</span></p>
+          </div>
+          <div class="summary memory">
+            <div class="icon-title-wrap">
+              <img src="images/icon-memory.svg" alt="" />
+              <h3>Memory</h3>
+            </div>
+            <p>92<span> / 100</span></p>
+          </div>
+          <div class="summary verbal">
+            <div class="icon-title-wrap">
+              <img src="images/icon-verbal.svg" alt="" />
+              <h3>Verbal</h3>
+            </div>
+            <p>61<span> / 100</span></p>
+          </div>
+          <div class="summary visual">
+            <div class="icon-title-wrap">
+              <img src="images/icon-visual.svg" alt="" />
+              <h3>Visual</h3>
+            </div>
+            <p>73<span> / 100</span></p>
+          </div>
+        </section>
+        <button class="">Continue</button>
+      </div>
+    </article>
+  </body>
+</html>
